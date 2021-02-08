@@ -1,0 +1,44 @@
+.menu {
+  height: 100vh;
+  overflow: auto;
+  margin-right: 0;
+}
+
+.collapsebutton{
+  margin: 9px 0;
+}
+
+.tools {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#switch {
+  flex-shrink: 1;
+}
+.divider {
+  margin: 0 ;
+}
+.main::after {
+  content: "";
+  display: block;
+  clear: both;
+  width: 0;
+  height: 0;
+}
+.left-content {
+  float: left;
+}
+.right-content {
+  height: 100vh;
+  overflow: hidden;
+  background-color: #ccc;
+}
+.ant-menu-inline {
+  width: 250px;
+}
+
+
+//媒体查询隐藏侧边栏
+
