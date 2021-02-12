@@ -1,44 +1,141 @@
-.menu {
-  height: 100vh;
-  overflow: auto;
-  margin-right: 0;
-}
-
-.collapsebutton{
-  margin: 9px 0;
-}
-
-.tools {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
-#switch {
-  flex-shrink: 1;
-}
-.divider {
-  margin: 0 ;
-}
-.main::after {
-  content: "";
-  display: block;
-  clear: both;
-  width: 0;
-  height: 0;
-}
 .left-content {
-  float: left;
-}
-.right-content {
+  float : left;
   height: 100vh;
-  overflow: hidden;
+  transition: background 0.3s, width 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
+
+  .logo-outer{
+    overflow: hidden;
+    transition: border-color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), padding 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
+
+    .logo {
+      height     : 32px;
+      margin     : 18px 0;
+      padding    : 0 34px 0 24px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition : border-color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), padding 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
+  
+      img {
+        width            : 32px;
+        height           : 32px;
+        margin-right     : 10px;
+        vertical-align   : middle;
+        transition    : font-size 0.15s cubic-bezier(0.215, 0.61, 0.355, 1), margin 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), color 0.3s;
+      }
+  
+      span {
+        width         : 130px;
+        height        : 32px;
+        font-size     : 18px;
+        font-weight   : 700;
+        display       : inline-block;
+        text-transform: capitalize;
+        overflow      : hidden;
+        vertical-align: middle;
+        transition    : opacity 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), width 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), color 0.3s;
+      }
+    }
+  
+
+  .logo-mini {
+    padding: 0 24px;
+
+    img {
+      margin : 0;
+      padding: auto 24px;
+    }
+
+    span {
+      width  : 0;
+      opacity: 0;
+    }
+  }
+}
+  .menu {
+    height  : calc(100vh - 68px -43px);
+    overflow: hidden;
+
+    &::after {
+      content: "";
+      display: block;
+      clear  : both;
+      height : 0;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: #0f0;
+      border: 5px solid #fff;
+    } 
+
+    .main-menu {
+      border  : none;
+      float   : left;
+      position: relative;
+      
+      // // 防止底部工具栏遮挡菜单选项
+      // &::after {
+      //   content: "";
+      //   display: block;
+      //   height: 40px;
+      // }
+    }
+
+  }
+  .menu-tools {
+    width: 230px;
+    position  : absolute;
+    bottom    : 0;
+    left: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index   : 9;
+    background-color: white;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 1px -4px 2px -3px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s, width 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
+
+
+    .collapse-btn {
+      height          : 39px;
+      line-height     : 39px;
+      font-size       : 14px;
+      cursor          : pointer;
+    }
+  }
+
+
+  .menu-tools-collapse {
+    width: 80px;
+  }
+}
+
+
+
+
+.right-content {
+  height          : 100vh;
+  overflow        : hidden;
   background-color: #ccc;
 }
+
 .ant-menu-inline {
-  width: 250px;
+  width: 230px;
 }
 
 
-//媒体查询隐藏侧边栏
+.ant-menu-inline .ant-menu-item,
+.ant-menu-inline .ant-menu-submenu-title {
+  width: 100%;
+}
 
+
+.outer {
+  width: 300px;
+  height: 100px;
+  background-color: red;
+  .inner {
+    width: 300px;
+    height: 600px;
+  }
+}
