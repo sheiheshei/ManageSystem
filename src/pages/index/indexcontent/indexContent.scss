@@ -1,0 +1,8 @@
+.outer {
+  background-color: #eee;
+
+  .inner {
+    height: 200%;
+    overflow: auto;
+  }
+}

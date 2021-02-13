@@ -93,7 +93,7 @@
     background-color: white;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     box-shadow: 1px -4px 2px -3px rgba(0, 0, 0, 0.1);
-    transition: background 0.3s, width 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
+    transition: background 0.3s, width 0.3s cubic-bezier(0.2, 0, 0, 1) 0s,transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), -webkit-transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);;
 
 
     .collapse-btn {
@@ -116,7 +116,6 @@
 .right-content {
   height          : 100vh;
   overflow        : hidden;
-  background-color: #ccc;
 }
 
 .ant-menu-inline {
@@ -130,12 +129,3 @@
 }
 
 
-.outer {
-  width: 300px;
-  height: 100px;
-  background-color: red;
-  .inner {
-    width: 300px;
-    height: 600px;
-  }
-}

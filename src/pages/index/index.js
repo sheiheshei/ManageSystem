@@ -1,44 +1,40 @@
 
-import React from 'react'
-import { Component } from 'react'
-import { connect } from "react-redux"
-import BScroll from "better-scroll";
-import { Menu, Switch, Button, Divider, Layout } from 'antd';
-import { MailOutlined, AppstoreOutlined, SettingOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
+import React,{ Component }  from 'react'
+import { Menu, Switch } from 'antd';
 import $ from 'jquery'
-// import PerfectScrollbar from 'perfect-scrollbar';
 import { Scrollbars } from 'react-custom-scrollbars';
+import { HashRouter, Route, Router, withRouter,Switch as RSwitch } from 'react-router-dom'
+import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 
-
-
-
+import menuConf from './menuconf'
+import Header from '../../pages/index/header/header'
+import IndexContent from "./indexcontent/indexContent";
 import './index.scss'
 import logo from "../../static/img/logo.png";
 
 
-import Header from '../../pages/index/header/header'
-import Sider from 'antd/lib/layout/Sider';
-import { ScrollBar } from 'better-scroll';
-
-// import menuConf from './menu/menuconf'
 const { SubMenu } = Menu
 
 
-export default class Index extends Component {
+class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      BScroll: ""
+      menuConf: []
     }
   }
 
   componentDidMount() {
-    // const wrapper = document.querySelector(".menu")
-    // const scroll = new BScroll(wrapper, {
-    //   click: true,
-    //   // scrollX: true,
-    //   scrollY: true
-    // })
+    this.getMenuData();
+  }
+// 异步导入，后期后端有数据可以使用axios获取后端数据
+  getMenuData() {
+    import('./menuconf').then(data => {
+      console.log(JSON.stringify(data.default))
+      this.setState({
+        menuConf: data.default
+      })
+    })
   }
 
 
@@ -56,7 +52,6 @@ export default class Index extends Component {
   };
 
   handleClick = e => {
-    console.log('click ', e);
     this.setState({
       current: e.key,
     });
@@ -81,8 +76,52 @@ export default class Index extends Component {
 
   };
 
+  itemClick = (e) => {
+    console.log(e.item.props.to)
+    this.props.history.push(e.item.props.to)
+  }
 
 
+  getMenu = menuConf => {
+    return (
+      <Menu
+        theme={this.state.theme}
+        onClick={this.handleClick}
+        defaultOpenKeys={['sub1']}
+        selectedKeys={[this.state.current]}
+        mode="inline"
+        className="main-menu"
+        inlineCollapsed={this.state.collapsed}
+      >
+        {
+          menuConf.map((item, index) => {
+            if (item.subMenus !== undefined && item.subMenus.length != 0) {
+              return (
+                <SubMenu
+                  key={item.key}
+                  icon={<item.icon />}
+                  title={item.tittle}
+                >
+                  {this.getMenu(item.subMenus)}
+                </SubMenu>
+              )
+            } else {
+              return (
+                <Menu.Item
+                  key={item.key}
+                  onClick={this.itemClick}
+                  icon={<item.icon />}
+                  to={item.to}
+                >
+                  {item.tittle}
+                </Menu.Item>
+              )
+            }
+          })
+        }
+      </Menu>
+    )
+  }
 
 
   render() {
@@ -95,38 +134,8 @@ export default class Index extends Component {
               <span>ant design pro</span>
             </div>
           </div>
-          {/* <div className="menu"> */}
           <Scrollbars className="menu" style={{ height: 'calc(100vh - 68px - 40px)' }}>
-            <Menu
-              theme={this.state.theme}
-              onClick={this.handleClick}
-              defaultOpenKeys={['sub1']}
-              selectedKeys={[this.state.current]}
-              mode="inline"
-              className="main-menu"
-              inlineCollapsed={this.state.collapsed}
-            >
-              <SubMenu key="sub1" icon={<MailOutlined />} title="Navigation One">
-                <Menu.Item key="1">Option 1</Menu.Item>
-                <Menu.Item key="2">Option 2</Menu.Item>
-                <Menu.Item key="3">Option 3</Menu.Item>
-                <Menu.Item key="4">Option 4</Menu.Item>
-              </SubMenu>
-              <SubMenu key="sub2" icon={<AppstoreOutlined />} title="Navigation Two">
-                <Menu.Item key="5">Option 5</Menu.Item>
-                <Menu.Item key="6">Option 6</Menu.Item>
-                <SubMenu key="sub3" title="Submenu">
-                  <Menu.Item key="7">Option 7</Menu.Item>
-                  <Menu.Item key="8">Option 8</Menu.Item>
-                </SubMenu>
-              </SubMenu>
-              <SubMenu key="sub4" icon={<SettingOutlined />} title="Navigation Three">
-                <Menu.Item key="9">Option 9</Menu.Item>
-                <Menu.Item key="10">Option 10</Menu.Item>
-                <Menu.Item key="11">Option 11</Menu.Item>
-                <Menu.Item key="12">Option 12</Menu.Item>
-              </SubMenu>
-            </Menu>
+            {this.getMenu(menuConf)}
           </Scrollbars>
 
           <div className={`menu-tools`} id="menu-tools"
@@ -145,25 +154,16 @@ export default class Index extends Component {
               style={{ fontSize: '4px' }}
             />
           </div>
-          {/* </div> */}
 
         </div>
         <div className="right-content">
           <Header />
-          <div className="content" style={{ height: 'calc(100vh - 55px)', width: '100vw - 230px' }}>
-            <Scrollbars className="outer" style={{ width: 300, height: 300 }}>
-              <div className="inner"></div>
-            </Scrollbars>
-          </div>
+          <IndexContent/>
         </div>
       </div>
     );
   }
 }
 
+export default withRouter(Index)
 
-function Logo(props) {
-  return (
-    <img src={logo} alt="" />
-  )
-}
