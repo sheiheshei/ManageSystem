@@ -1,8 +1,71 @@
 .outer {
-  background-color: #eee;
+  height          : calc(100vh - 56px);
+  background-color: #f0f2f5;
+  display         : flex;
+  flex-direction  : row;
+  justify-content : space-between;
 
   .inner {
-    height: 200%;
-    overflow: auto;
+    overflow        : visible;
+    min-height      : calc(100% - 51px);
+  }
+}
+
+.form-basic {
+  width : 700px;
+  margin: 0 auto;
+}
+
+
+.footer {
+  width : 273px;
+  height: 50px;
+  margin: 0 auto;
+
+  .footer-top {
+    height       : 19px;
+    width        : 260px;
+    margin       : 0 auto;
+    margin-bottom: 17px;
+    position     : relative;
+    font-size    : 14px;
+
+    div:nth-child(1) {
+      width   : 100px;
+      height  : 19px;
+      position: absolute;
+      left    : 0;
+    }
+
+    .github {
+      left      : 93px;
+      right     : 68px;
+      position  : absolute;
+      text-align: center;
+    }
+
+    div:last-child {
+      width     : 70px;
+      height    : 19px;
+      text-align: right;
+      position  : absolute;
+      right     : 0;
+    }
+  }
+
+  .footer-bottom {
+    text-align : center;
+    line-height: 14px;
+
+    .copyright {
+      width           : 14px;
+      height          : 14px;
+      display         : inline-block;
+      background-color: #848587;
+      color           : #49494A;
+      border-radius   : 50%;
+      vertical-align  : bottom;
+      font-size       : 12px;
+    }
   }
 }
